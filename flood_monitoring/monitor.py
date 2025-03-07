@@ -1,5 +1,7 @@
-import os
 import requests
+import pandas as pd
+from datetime import datetime, timedelta
+
 
 class FloodMonitor:
     # root path for the available APIs
@@ -31,39 +33,64 @@ class FloodMonitor:
         else:
             self.town = town
 
+        # get the current date 
+        self.end_date = datetime.today().strftime('%Y-%m-%d')
+        self.start_date = (datetime.today() - timedelta(1)).strftime('%Y-%m-%d')
+        # print(f'todays date is {self.current_date} and yesterday it was {self.yesterday_date}')
+        self.reading_parameters = {'startdate': self.start_date,
+                                   'enddate': self.end_date}
+
         # initialise parameters to be used in the API
         self.parameters = {
-            'parameter': self.measurement,
+            'parameterName': self.measurement,
             'town': self.town
         }
     
-    def get_data(self, parameters: dict):
+    def perform_monitoring(self, parameters: dict):
         # url for all the stations
-        self.stations_pth = os.path.join(self.root_pth, 'id/stations')
+        # self.stations_pth = os.path.join(self.root_pth, 'id/stations') # may not work on windows (works on linux)
+        self.stations_pth = f"{self.root_pth}/id/stations"
 
 
         response = requests.get(self.stations_pth, params=parameters)
+        # if request not good print error code
         if response.status_code != 200:
             raise ValueError(f'Error: {response.status_code}')
         else:
-            self.stations = response.json()
+            data = response.json()
+            # list of dictionaries 
+            self.stations = data['items']
             # print a message if there are no stations based on the given parameters
-            if len(self.stations['items']) == 0:
+            if len(self.stations) == 0:
                 print('No stations found based on the given parameters')
             else:
-                pass
                 print('Stations found based on the given parameters')
-                # for station in self.stations['items']:
-                #     print(f"Station Name: {station['label']}")
-                #     print(f"Station ID: {station['notation']}")
-                #     print(f"Station URL: {station['self']}")
-                #     print('\n')
+                # just for testing only getting first... either need additional filters or if more than one then just select one?
+                self.individual_station_pth = self.stations[0]['@id']
+                print(self.individual_station_pth)
+
+                # get all reading for selected station within last day
+                readings_url = f'{self.individual_station_pth}/readings'
+
+                readings_response = requests.get(readings_url, params=self.reading_parameters)
+
+                reading_data = readings_response.json()
+
+                # get list corresponding to items key
+                items = reading_data['items']
+
+                print(len(items))
+                # for x in items:
+                #     print(x['value'])
+
+                # plot values vs date
+                
 
     def _plot_line_graph(self):
         pass
 
 if __name__ == "__main__":
-    fm = FloodMonitor('Liverpool', 'flow')
+    fm = FloodMonitor('Netherside Hall', 'flow')
 
-    fm.get_data(fm.parameters)
+    fm.perform_monitoring(fm.parameters)
 

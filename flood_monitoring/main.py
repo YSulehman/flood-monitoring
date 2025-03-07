@@ -11,6 +11,9 @@ def main(args):
     # make an instance of the FloodMonitor class
     fm = FloodMonitor(**flood_monitor_args)
 
+    # flood monitoring 
+    fm.perform_monitoring(fm.parameters)
+
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
 
