@@ -1,5 +1,5 @@
 import argparse
-from .monitor import FloodMonitor
+from monitor import FloodMonitor
 
 def check_valid_lat(value: float):
     # try to convert the value to a float
@@ -34,14 +34,17 @@ def main(args):
         'parameterName': args.measurement,
         'riverName': args.river_name,
         'lat': args.latitute,
-        'long': args.longitude
+        'long': args.longitude,
+        'dist': args.distance
     }
+
+    print(flood_monitor_args)
 
     # make an instance of the FloodMonitor class
     fm = FloodMonitor(**flood_monitor_args)
 
     # flood monitoring 
-    fm.perform_monitoring(fm.parameters)
+    fm.perform_monitoring(fm.station_parameters)
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -52,4 +55,7 @@ if __name__=="__main__":
     parser.add_argument('--river_name', type=str, help='The river name')
     parser.add_argument('--latitute', type=check_valid_lat, help='The latitude of the town, valid values are between -90 and 90')
     parser.add_argument('--longitude', type=check_valid_lon, help='The longitude of the town, valid values are between -180 and 180')
+    parser.add_argument('--distance', type=int, help='return stations within the specified distance of the given latitude and longitude')
     args = parser.parse_args()
+
+    main(args)
