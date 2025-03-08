@@ -1,5 +1,5 @@
 import argparse
-from monitor import FloodMonitor
+from flood_monitoring.monitor import FloodMonitor
 
 def check_valid_lat(value: float):
     # try to convert the value to a float
