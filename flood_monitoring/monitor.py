@@ -9,22 +9,22 @@ class FloodMonitor:
 
     # valid measurements
     valid_measurments = ('water-level', 'wind', 'flow', 'temperature')
-    def __init__(self, town: str, measurement: str):
+    def __init__(self, town: str = None, parameterName: str = None, riverName: str = None, lat: float = None, long: float = None):
         # check if the measurement is a string
-        if type(measurement) != str:
+        if type(parameterName) != str:
             raise ValueError('measurement must be a string')
         else:
-            if measurement not in self.valid_measurments:
+            if parameterName not in self.valid_measurments:
                 raise ValueError('Invalid measurement')
             else:
                 # assign measurement appropriately
-                if measurement == 'water-level':
+                if parameterName == 'water-level':
                     self.measurement = 'Water Level'
-                elif measurement == 'flow':
+                elif parameterName == 'flow':
                     self.measurement = 'Flow'
-                elif measurement == 'wind':
+                elif parameterName == 'wind':
                     self.measurement = 'Wind'
-                elif measurement == 'temperature':
+                elif parameterName == 'temperature':
                     self.measurement = 'Temperature'
         
         # check if the town is a string
@@ -33,18 +33,34 @@ class FloodMonitor:
         else:
             self.town = town
 
+        # check if the river name is a string
+        if type(riverName) != str:
+            raise ValueError('river name must be a string')
+        else:
+            self.river_name = riverName
+        # set the latitude and longitude
+        self.latitude = lat
+        self.longitude = long
+
+        # dynamically set the parameters based on the given values, parameters set to None if all values are not provided
+        params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
+        self.station_parameters = params if params else None
+
+        # initialise parameters to be used in the API
+        # self.station_parameters = {
+        #     'parameterName': self.measurement,
+        #     'town': self.town,
+        #     'riverName': self.river_name,
+        #     'lat': self.latitude,
+        #     'long': self.longitude
+        # }
+
         # get the current date 
         self.end_date = datetime.today().strftime('%Y-%m-%d')
         self.start_date = (datetime.today() - timedelta(1)).strftime('%Y-%m-%d')
         # print(f'todays date is {self.current_date} and yesterday it was {self.yesterday_date}')
         self.reading_parameters = {'startdate': self.start_date,
                                    'enddate': self.end_date}
-
-        # initialise parameters to be used in the API
-        self.parameters = {
-            'parameterName': self.measurement,
-            'town': self.town
-        }
     
     def perform_monitoring(self, parameters: dict):
         # url for all the stations
@@ -92,5 +108,5 @@ class FloodMonitor:
 if __name__ == "__main__":
     fm = FloodMonitor('Netherside Hall', 'flow')
 
-    fm.perform_monitoring(fm.parameters)
+    fm.perform_monitoring(fm.station_parameters)
 
