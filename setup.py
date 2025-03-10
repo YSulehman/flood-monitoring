@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='flood_monitoring',
+    name='flood-monitoring',
     version='0.1',
     author='Yusuf Sulehman',
     author_email='yusuf.sulehman@postgrad.manchester.ac.uk',
@@ -17,5 +17,11 @@ setup(
         'console_scripts': [
             'flood_monitoring = flood_monitoring.main:main'
         ]
-    }
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.8",
 )

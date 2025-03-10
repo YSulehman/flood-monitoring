@@ -3,6 +3,9 @@ This project uses the [Real Time flood-monitoring API](https://environment.data.
 to monitor flood information at specific measurement stations.
 
 ## Installation
+In a new conda environment, you can install the package via pip:
+
+```pip install flood-monitoring```
 
 ## Example Usage
 To select an individual measurement station, users can specify:
