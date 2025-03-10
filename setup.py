@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='flood-monitoring',
-    version='0.1',
+    version='0.2',
     author='Yusuf Sulehman',
     author_email='yusuf.sulehman@postgrad.manchester.ac.uk',
     description='A simple flood monitoring package',
