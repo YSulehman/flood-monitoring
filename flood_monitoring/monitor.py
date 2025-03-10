@@ -55,9 +55,7 @@ class FloodMonitor:
         # dynamically set the parameters based on the given values, parameters set to None if all values are not provided
         params = {k: v for k, v in locals().items() if k != 'self' and v is not None}
         self.station_parameters = params if params else None
-        # check 
-        print(self.station_parameters)
-
+        
         # initialise parameters to be used in the API
         # self.station_parameters = {
         #     'parameterName': self.measurement,
@@ -81,7 +79,6 @@ class FloodMonitor:
 
 
         response = requests.get(self.stations_pth, params=parameters)
-        print(response.url)
         # if request not good print error code
         if response.status_code != 200:
             raise ValueError(f'Error: {response.status_code}')
@@ -108,7 +105,6 @@ class FloodMonitor:
                 # get all reading for selected station within last day
                 readings_url = f'{self.individual_station_pth}/readings'
 
-                print(f'The readings url is: {readings_url}')
 
                 readings_response = requests.get(readings_url, params=self.reading_parameters)
 
@@ -124,7 +120,6 @@ class FloodMonitor:
                 df = pd.DataFrame({'Date': dates, 'Value': values})
                 print(df.head())
 
-                print(values)
                 # plot the values
                 self._plot_line_graph(values)
                 
@@ -138,8 +133,4 @@ class FloodMonitor:
         plt.title(f'Readings from {self.start_date} to {self.end_date}')
         plt.show()
 
-# if __name__ == "__main__":
-#     fm = FloodMonitor('Netherside Hall', 'water-level', 'River Wharfe')
-
-#     fm.perform_monitoring(fm.station_parameters)
 
