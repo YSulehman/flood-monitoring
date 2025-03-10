@@ -26,4 +26,6 @@ and displays the first five rows of readings from particular station over the la
 4  2025-03-09T01:00:00Z -0.163
 ```
 
+as well as a line graph of that station's readings over the last 24 hours:
 
+![line graph](example.png)
