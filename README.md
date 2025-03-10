@@ -14,3 +14,16 @@ For example, running the following command:
 
 gives the following output:
 
+```The selected station id is: http://environment.data.gov.uk/flood-monitoring/id/stations/1029TH```
+
+and displays the first five rows of readings from particular station over the last 24 hours:
+
+```
+0  2025-03-09T00:00:00Z -0.163
+1  2025-03-09T00:15:00Z -0.163
+2  2025-03-09T00:30:00Z -0.165
+3  2025-03-09T00:45:00Z -0.163
+4  2025-03-09T01:00:00Z -0.163
+```
+
+
