@@ -28,4 +28,4 @@ and displays the first five rows of readings from particular station over the la
 
 as well as a line graph of that station's readings over the last 24 hours:
 
-![line graph](example.png)
+![line graph](examples/example_line_graph.png)
