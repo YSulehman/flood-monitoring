@@ -10,7 +10,7 @@ class FloodMonitor:
     root_pth = 'https://environment.data.gov.uk/flood-monitoring'
 
     # valid measurements
-    valid_measurments = ('water-level', 'wind', 'flow', 'temperature', None)
+    valid_measurments = ('Water Level', 'Wind', 'Flow', 'Temperature', None)
     def __init__(self, town: str = None, parameterName: str = None, riverName: str = None, lat: float = None, long: float = None, dist: int = None):
         # check if the measurement is a string
         if type(parameterName) != str and parameterName is not None:
@@ -20,13 +20,13 @@ class FloodMonitor:
                 raise ValueError('Invalid measurement')
             else:
                 # assign measurement appropriately
-                if parameterName == 'water-level':
+                if parameterName == 'Water Level':
                     self.measurement = 'Water Level'
-                elif parameterName == 'flow':
+                elif parameterName == 'Flow':
                     self.measurement = 'Flow'
-                elif parameterName == 'wind':
+                elif parameterName == 'Wind':
                     self.measurement = 'Wind'
-                elif parameterName == 'temperature':
+                elif parameterName == 'Temperature':
                     self.measurement = 'Temperature'
                 else:
                     self.measurement = None
@@ -108,6 +108,8 @@ class FloodMonitor:
                 # get all reading for selected station within last day
                 readings_url = f'{self.individual_station_pth}/readings'
 
+                print(f'The readings url is: {readings_url}')
+
                 readings_response = requests.get(readings_url, params=self.reading_parameters)
 
                 reading_data = readings_response.json()
@@ -131,7 +133,7 @@ class FloodMonitor:
     def _plot_line_graph(self, values: list):
         # plot the values 
         plt.plot(range(len(values)),values)
-        # plt.ylabel(self.measurement)
+        plt.ylabel(self.measurement)
         plt.xlabel('Time (15 minute intervals)')
         plt.title(f'Readings from {self.start_date} to {self.end_date}')
         plt.show()

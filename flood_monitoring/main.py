@@ -33,12 +33,10 @@ def main(args):
         'town': args.town,
         'parameterName': args.measurement,
         'riverName': args.river_name,
-        'lat': args.latitute,
+        'lat': args.latitude,
         'long': args.longitude,
         'dist': args.distance
     }
-
-    print(flood_monitor_args)
 
     # make an instance of the FloodMonitor class
     fm = FloodMonitor(**flood_monitor_args)
@@ -51,9 +49,9 @@ if __name__=="__main__":
 
     # arguments to provide control over measurement station
     parser.add_argument('--town', type=str, help='The town to monitor')
-    parser.add_argument('--measurement', type=str, choices=['water-level', 'wind', 'flow', 'temperature'], help='The measurement to monitor')
+    parser.add_argument('--measurement', type=str, choices=['Water Level', 'Wind', 'Flow', 'Temperature'], help='The measurement to monitor')
     parser.add_argument('--river_name', type=str, help='The river name')
-    parser.add_argument('--latitute', type=check_valid_lat, help='The latitude of the town, valid values are between -90 and 90')
+    parser.add_argument('--latitude', type=check_valid_lat, help='The latitude of the town, valid values are between -90 and 90')
     parser.add_argument('--longitude', type=check_valid_lon, help='The longitude of the town, valid values are between -180 and 180')
     parser.add_argument('--distance', type=int, help='return stations within the specified distance of the given latitude and longitude')
     args = parser.parse_args()
