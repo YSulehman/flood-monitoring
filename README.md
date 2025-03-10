@@ -1,4 +1,6 @@
 # Flood Monitoring
+This project uses the [Real Time flood-monitoring API](https://environment.data.gov.uk/flood-
+monitoring/doc/reference) to monitor flood information at specific measurement stations.
 
 ## Installation
 
