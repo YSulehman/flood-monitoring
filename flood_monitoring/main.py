@@ -53,7 +53,7 @@ if __name__=="__main__":
     parser.add_argument('--river_name', type=str, help='The river name')
     parser.add_argument('--latitude', type=check_valid_lat, help='The latitude of the town, valid values are between -90 and 90')
     parser.add_argument('--longitude', type=check_valid_lon, help='The longitude of the town, valid values are between -180 and 180')
-    parser.add_argument('--distance', type=int, help='return stations within the specified distance of the given latitude and longitude')
+    parser.add_argument('--distance', type=int, help='return stations within the specified distance of the given latitude and longitude in km')
     args = parser.parse_args()
 
     main(args)

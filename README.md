@@ -5,7 +5,7 @@ to monitor flood information at specific measurement stations.
 ## Installation
 
 ## Example Usage
-To select an individual measuremnt station, users can specify:
+To select an individual measurement station, users can specify:
 1. The Town name, 
 2. The River name, 
 3. The specific measurement of interest (water level, water flow rate, wind direction and speed, or temperature).
