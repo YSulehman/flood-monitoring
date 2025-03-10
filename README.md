@@ -1,5 +1,7 @@
 # Flood Monitoring
 
+## Installation
+
 ## Example Usage
 To select an individual measuremnt station, users can specify:
 1. The Town name, 
@@ -7,6 +9,10 @@ To select an individual measuremnt station, users can specify:
 3. The specific measurement of interest (water level, water flow rate, wind direction and speed, or temperature).
 4. The specific latitude and longitude coordinates of the region of interest. 
 5. A distance d (in kilometers) of all stations falling within d km of the specified latitude and longitude. 
+
+For further details on the available options, run:
+
+```python -m flood_monitoring.main  --help```
 
 For example, running the following command: 
 
@@ -16,9 +22,10 @@ gives the following output:
 
 ```The selected station id is: http://environment.data.gov.uk/flood-monitoring/id/stations/1029TH```
 
-and displays the first five rows of readings from particular station over the last 24 hours:
+and displays the first five rows of readings from the particular station over the last 24 hours:
 
 ```
+                Date     Value
 0  2025-03-09T00:00:00Z -0.163
 1  2025-03-09T00:15:00Z -0.163
 2  2025-03-09T00:30:00Z -0.165
